@@ -14,18 +14,25 @@ mapr:
   group: 'mapr'
   uid: '1000'
   gid: '1000'
+  zk_port: '5181'
+  cldb_port: '7222'
   # zookeeper
   zk:
     - 'ip-10-36-128-103'
-    - 'ip-10-36-128-104'
+    - 'ip-10-39-4-200'
+    - 'ip-10-39-20-157'
   # CLDB nodes
   cldb:
     - 'ip-10-36-128-103'
+    - 'ip-10-39-4-200'
+    - 'ip-10-39-20-157'
 
   # please override this for each node using other YAML files (see README)
   disk_setup: true
   disks:
     - '/dev/xvdb'
+  rm_host: 'ip-10-36-128-103'
+
 
 ###############################
 # System level configurations #
