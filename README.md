@@ -42,7 +42,10 @@ Make you sure you have also Git installed, if you want to pull the recipes direc
 
 > git clone https://github.com/deorus/mapr-puppet.git
 
-4. Adapt the final site puppet cookbook
+4. Adapt the files for your site
+
+Point :datadir of hiera.yml to the folder of git (e.g. /home/ec2-user/mapr-puppet/ ). This is where hiera expects the YAML files, such as common.yaml.
+
 
 Adapt global configuration variables in common.yaml or override node specific settings creating an YAML file for the specified node FQDN (e.g. ip-10-36-128-103.eu-west-1.compute.internal.yaml ).
 
@@ -56,7 +59,7 @@ Fileserver will be installed on all the nodes.
 
 5. Run puppet against it:
 
-> puppet apply --modulepath=``pwd``/mapr-puppet/modules --hiera_config=``pwd``/mapr-puppet/hiera.yaml ``pwd``/mapr-puppet/aws_cluster_site.pp
+> puppet apply --modulepath=`pwd`/mapr-puppet/modules --hiera_config=`pwd`/mapr-puppet/hiera.yaml `pwd`/mapr-puppet/aws_cluster_site.pp
 
 
 

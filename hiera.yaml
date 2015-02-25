@@ -11,4 +11,4 @@
 # # - %CommonAppData%\PuppetLabs\hiera\var on Windows
 # # When specifying a datadir, make sure the directory exists.
 # :datadir: '/var/lib/puppet/yaml/foreman/' 
-  :datadir: '/home/ec2-user/puppet/' 
+  :datadir: '/home/ec2-user/mapr-puppet/' 
