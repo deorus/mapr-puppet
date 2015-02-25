@@ -40,7 +40,8 @@ class mapr::setup (
     $rmHost = $config[rm_host]
     $clusterName = $config[clustername]
 
-    $configure_cmd = "/opt/mapr/server/configure.sh -C $cldbList -Z $zkList -RM $rmHost -N $clusterName -no-autostart"
+    $configure_cmd = "/opt/mapr/server/configure.sh -C $cldbList -Z $zkList -RM $rmHost -N $clusterName "
+    #-no-autostart"
 
     ##############
     # Disk SETUP #
@@ -49,27 +50,43 @@ class mapr::setup (
     $disk_setup = $config[disk_setup]
     $disks = $config[disks]
 
+    $diskGrepList = inline_template('<%= @disks.join("\|") %>')
+    $disk_setup_check_cmd = "test '`grep \'$diskGrepList\' /opt/mapr/conf/disktab | wc -l`' == '0'"
+
     if $disk_setup and $disks != undef {
         # write disk list
         file { '/tmp/disks.txt':
             content => template('mapr/disks.txt.erb'),
         }
-
+    
         $disk_setup_cmd = "$configure_cmd -F /tmp/disks.txt"
         exec { 'setup_disks':
             command => "$disk_setup_cmd",
-            unless => "/opt/mapr/server/mrconfig sp list",
+            onlyif => "$disk_setup_check_cmd",
             path => "/usr/bin:/bin",
             timeout => 0,
             require => [Package['mapr-fileserver'], File['/tmp/disks.txt']]
         }
-    } else {
-        # Run configure normally
-        exec { 'configure':
-            command => "$configure_cmd",
-            path => "/usr/bin:/bin",
-            timeout => 0,
-            require => [Package['mapr-fileserver']]
-        }
+    }
+
+    # Run configure normally
+    exec { 'configure':
+        command => "$configure_cmd",
+        unless => "$disk_setup_check_cmd",
+        path => "/usr/bin:/bin",
+        timeout => 0,
+        require => [Package['mapr-fileserver']]
+    }
+
+    service { 'mapr-zookeeper':
+        ensure  => "running",
+        enable  => "true",
+        require => [Package['mapr-zookeeper'], Exec['configure']]
+    }
+
+    service { 'mapr-warden':
+        ensure  => "running",
+        enable  => "true",
+        require => [Package['mapr-fileserver'], Exec['configure']]
     }
 }
