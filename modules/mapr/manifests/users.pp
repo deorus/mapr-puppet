@@ -1,10 +1,11 @@
 
 class mapr::users(
-	$username = hiera('mapr::user', 'mapr'),
-	$groupname = hiera('mapr::group', 'mapr'),
-	$uid = hiera('mapr::uid', '1000'),
-	$gid = hiera('mapr::gid', '1000')
+	$config = hiera_hash('mapr', undef)
 ) {
+	$username = $config[user]
+	$groupname = $config[group]
+	$uid = $config[uid]
+	$gid = $config[gid]
 	
 	group { $groupname:
         ensure => 'present',

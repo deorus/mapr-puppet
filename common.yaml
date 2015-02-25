@@ -9,12 +9,23 @@ classes:
 ##################
 mapr:
   release: '4.0.1'
+  clustername: 'maprcluster'
   user: 'mapr'
   group: 'mapr'
   uid: '1000'
   gid: '1000'
-  cldbs: ''
-  rm: ''
+  # zookeeper
+  zk:
+    - 'ip-10-36-128-103'
+    - 'ip-10-36-128-104'
+  # CLDB nodes
+  cldb:
+    - 'ip-10-36-128-103'
+
+  # please override this for each node using other YAML files (see README)
+  disk_setup: true
+  disks:
+    - '/dev/xvdb'
 
 ###############################
 # System level configurations #

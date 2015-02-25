@@ -1,6 +1,8 @@
 
-class mapr::repo ($mapr_release = hiera('mapr::release', '4.0.1')) {
-
+class mapr::repo (
+	$config = hiera_hash('mapr', undef)
+) {
+	$mapr_release = $config[release]
 	# TODO check for other kinds of distros
 	
 	yumrepo { 'maprtech':
@@ -25,5 +27,10 @@ class mapr::repo ($mapr_release = hiera('mapr::release', '4.0.1')) {
 		failovermethod => 'priority',
 		descr => "Extra Packages for Enterprise Linux 6",
 		mirrorlist => "https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=\$basearch"
+	}
+
+	rpmkey { '66B3F0D6':
+		ensure => present,
+		source => 'http://package.mapr.com/releases/pub/maprgpg.key',
 	}
 }

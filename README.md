@@ -21,7 +21,7 @@ Setup
 
 > puppet --version
 
-You should use 3.x.
+You should use Puppet 3.x.
 
 3. Clone this git repo with the definitions
 
@@ -29,7 +29,17 @@ You should use 3.x.
 
 4. Adapt the final site puppet cookbook
 
-Please find a sample in aws_cluster_site.pp 
+Adapt global configuration variables in common.yaml or override node specific settings creating an YAML file for the specified node FQDN (e.g. ip-10-36-128-103.eu-west-1.compute.internal.yaml ).
+
+
+Edit Zookeeper and CLDB list – Zookeeper and CLDB will be installed on the nodes specified in the CLDB and ZK list (see common.yaml).
+
+Specify what you want to install on each node in a puppet file. Please find a sample in aws_cluster_site.pp 
+
+Fileserver will be installed on all the nodes.
+
+
+
 
 5. Run puppet against it:
 
