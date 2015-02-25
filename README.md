@@ -4,9 +4,12 @@ Puppet module to deploy MapR Hadoop distribution.
 
 TODO
 ====
-Most of the instructions work on CentOS but they weren't tested on other targeted systems such as Ubuntu and SUSE, supported by MapR.
+* Most of the instructions work on CentOS but they weren't tested on other targeted systems such as Ubuntu and SUSE, supported by MapR.
 
-Assure ntp is installed and running.
+* Assure ntp is installed and running.
+
+* Create 'role' for mapr-client nodes.
+
 
 Setup
 =====
