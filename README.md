@@ -56,7 +56,7 @@ Fileserver will be installed on all the nodes.
 
 5. Run puppet against it:
 
-> puppet apply --modulepath=`pwd`/mapr-puppet/modules --hiera_config=`pwd`/mapr-puppet/hiera.yaml `pwd`/mapr-puppet/aws_cluster_site.pp
+> puppet apply --modulepath=``pwd``/mapr-puppet/modules --hiera_config=``pwd``/mapr-puppet/hiera.yaml ``pwd``/mapr-puppet/aws_cluster_site.pp
 
 
 
