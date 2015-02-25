@@ -60,6 +60,7 @@ class mapr::setup (
             command => "$disk_setup_cmd",
             unless => "/opt/mapr/server/mrconfig sp list",
             path => "/usr/bin:/bin",
+            timeout => 0,
             require => [Package['mapr-fileserver'], File['/tmp/disks.txt']]
         }
     } else {
@@ -67,6 +68,7 @@ class mapr::setup (
         exec { 'configure':
             command => "$configure_cmd",
             path => "/usr/bin:/bin",
+            timeout => 0,
             require => [Package['mapr-fileserver']]
         }
     }
