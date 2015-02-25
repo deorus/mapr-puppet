@@ -8,7 +8,15 @@ TODO
 
 * Assure ntp is installed and running.
 
+* Configure mysql and metrics database.
+
+* Apply license.
+
+* Create default volumes.
+
 * Create 'role' for mapr-client nodes.
+
+* Install OpenTSDB with MapR-DB support.
 
 
 Setup
@@ -26,6 +34,10 @@ Setup
 
 You should use Puppet 3.x.
 
+Make you sure you have also Git installed, if you want to pull the recipes directly from this repo.
+
+> yum install -y git
+
 3. Clone this git repo with the definitions
 
 > git clone https://github.com/deorus/mapr-puppet.git
@@ -42,10 +54,14 @@ Specify what you want to install on each node in a puppet file. Please find a sa
 Fileserver will be installed on all the nodes.
 
 
-
-
 5. Run puppet against it:
 
 > puppet apply --modulepath=`pwd`/mapr-puppet/modules --hiera_config=`pwd`/mapr-puppet/hiera.yaml `pwd`/mapr-puppet/aws_cluster_site.pp
 
+
+
+Limitations
+===========
+
+Currently this recipe doesn't cover multihomed setups.
 
